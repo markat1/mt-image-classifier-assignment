@@ -6,7 +6,7 @@ Every task from the tutorial is made using different branches and then merged in
 ### Layout
 Layout for this app is an webcam screen together with 4 buttons. Each button represents a class. Every time a user clicks on a button, a webcam image is added to a particular class as an training example [[tutorial-task-7]](https://codelabs.developers.google.com/codelabs/tensorflowjs-teachablemachine-codelab/index.html#6).
 
-![Layout - webcam and 4 buttons](https://github.com/markat1/mt-image-classifier-assignment/images/layout.jpg)
+![Layout - webcam and 4 buttons](https://github.com/markat1/mt-image-classifier-assignment/blob/master/images/layout.jpg)
 
 ### Method – how I tested the app!
 
@@ -18,7 +18,7 @@ I chose representing class “no action” as the wall in the background. That m
 
 I tried holding the same different items (1 item at a time) over the webcam. I was testing if it was able to predict what class the item belongs to and probability of how likely it belongs to that specific class. If I didn’t show any items then it should say “no action”, because there is no items.
 
-![Classes - A, B, C and "No action"](https://github.com/markat1/mt-image-classifier-assignment/images/classes.jpg)
+![Classes - A, B, C and "No action"](https://github.com/markat1/mt-image-classifier-assignment/blob/master/images/classes.jpg)
 
 
 ### Problems and how I improved the model
@@ -32,7 +32,7 @@ When the model had problems predicting the right item category, I just added a b
 Afterwards I tested again by showing the webcam the item. What I saw was an improvement in predicting the right class and with a higher probability. 
 
 ### Transfer learning
-![Transfer learning - Using MobileNet as pre model to K-nearest neighbours"](https://github.com/markat1/mt-image-classifier-assignment/images/transfer_learning.jpg)
+![Transfer learning - Using MobileNet as pre model to K-nearest neighbours"](https://github.com/markat1/mt-image-classifier-assignment/blob/master/images/transfer_learning.jpg)
 
 In the end of the tutorial it doesn’t use mobileNets label and probability anymore. Instead the tutorial wants MobileNet to stop right after it  makes the activation map from the webcam image via covnet layers. The activation map is instead used as input for the K nearest neighbours classifier.  K nearest neighbours classifier predicts by comparing our activation map with the test activations maps, that we made using my the A,B,C and “no action” buttons in the DOM. nearest neighbours classifier will try predict the class comparing the most similar test activation with the one we are making predictions for. It will output the result in the browser.
 
