@@ -16,40 +16,39 @@ How I tested this app is showing an item (like a deodorant) in front of the webc
 
 I chose representing class “no action” as the wall in the background. That means that when there’s no items shown for the webcam,  then it should predict “no action”. 
 
-I tried holding the same different items (1 item at a time) over the webcam. I was testing if it was able to predict what class the item belongs to and probability of how likely it belongs to that specific class. If I didn’t show any items then it should say “no action”, because there is no items.
+I tried holding different items (1 item at a time) over the webcam. I was testing if it was able to predict what class the item belongs to and probability of how likely it belongs to that specific class. 
 
 ![Classes - A, B, C and "No action"](https://github.com/markat1/mt-image-classifier-assignment/blob/master/images/classes.jpg)
 
 
 ### Problems and how I improved the model
 
-As long as I hold the item in almost the same spot as when I made my test images for the item, then it has no problem in predicting with high probability what category/class the item belongs to. 
+As long as I hold the item in almost the same spot as when I made the test images for the item, then it has no problem in predicting with high probability what category/class the item belongs to. 
 
 If I just changed the camera angle, the model had problems figuring out the correct class or only predict the right class with a low predictability. 
 
-When the model had problems predicting the right item category, I just added a bunch more test images for that particular items class.  I did this I showed the webcam the particular item and then click a bunch of times on that particular button/class it should belong to. I did that from multiple angles. 
+When the model had problems predicting the right item category,I just added a bunch more test images for that particular items class.  I did this I showed the webcam the particular item and then click a bunch of times on that particular button/class it should belong to. I did that from multiple angles. 
 
 Afterwards I tested again by showing the webcam the item. What I saw was an improvement in predicting the right class and with a higher probability. 
 
 ### Transfer learning
+In task 7 we stop using mobileNets label and probability. Instead the tutorial wants MobileNet to stop right after it  makes the activation map from the webcam image via covnet layers. The activation map is instead used as input for the K nearest neighbours classifier.  K nearest neighbours classifier predicts by comparing our activation map with the test activations maps, that we made using my the A,B,C and “no action” buttons in the DOM. nearest neighbours classifier will try predict the class comparing the most similar test activation with the one we are making predictions for. It will output the result in the browser.
+[[tutorial-task-7]](https://codelabs.developers.google.com/codelabs/tensorflowjs-teachablemachine-codelab/index.html#6)
+[[the-coding-train]](https://youtu.be/kRpZ5OqUY6Y?t=365)
+
 ![Transfer learning - Using MobileNet as pre model to K-nearest neighbours"](https://github.com/markat1/mt-image-classifier-assignment/blob/master/images/transfer_learning.jpg)
 
-In the end of the tutorial it doesn’t use mobileNets label and probability anymore. Instead the tutorial wants MobileNet to stop right after it  makes the activation map from the webcam image via covnet layers. The activation map is instead used as input for the K nearest neighbours classifier.  K nearest neighbours classifier predicts by comparing our activation map with the test activations maps, that we made using my the A,B,C and “no action” buttons in the DOM. nearest neighbours classifier will try predict the class comparing the most similar test activation with the one we are making predictions for. It will output the result in the browser.
+Using Mobilenet as a pre model to KNN called transfer learning. Transfer learning is a machine learning method where a model developed for a task is reused as the starting point for a model on a second task. [[transfer-learning-mastery]](https://machinelearningmastery.com/how-to-use-transfer-learning-when-developing-convolutional-neural-network-models/) [[transfer-learning-siraj]](https://www.youtube.com/watch?v=Ui1KbmutX0k) 
 
-Using Mobilenet as a pre model to KNN called transfer learning. Transfer learning is a machine learning method where a model developed for a task is reused as the starting point for a model on a second task. 
-
-Deep convolutional neural network can take days or event weeks to train on very large dataset. Then using pre-trained models will short-cut this process. Pre model works  great with small datasets as well, because it’s weight already been trained on a lot of images. 
+Deep convolutional neural network can take days or event weeks to train on very large dataset. Then using pre-trained models will short-cut this process. Pre model works  great with small datasets as well, because it’s weight already been trained on a lot of images. [[transfer-learning-cs231n]](http://cs231n.github.io/transfer-learning/)
 
 ### How the important parts of the code works
-The code that we will focus on is split up in 2 parts: data collection and prediction. The following sections explains what’s happening in these parts
-
-The code that we will focus on is split up in 2 parts: data collection and prediction. 
-
-The following sections explains what’s happening in these parts.
-
+The code that I will focus on is split up in 2 parts: 
+  - Data collection 
+  - Prediction. 
+  
 #### Data collection
 If we want to add more test images to our class we click one of the class buttons in the DOM.When that happens an event it fired and calls a callback function called addExample. addExample takes and index and a class. 
-
 
  ````
  const addExample = classId => {
@@ -92,3 +91,4 @@ The prediction happens in the endless while loop. It first checks if we have alr
         await tf.nextFrame();
     }
 ````
+
