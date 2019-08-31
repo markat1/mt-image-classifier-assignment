@@ -27,12 +27,12 @@ As long as I hold the item in almost the same spot as when I made the test image
 
 If I just changed the camera angle, the model had problems figuring out the correct class or only predict the right class with a low predictability. 
 
-When the model had problems predicting the right item category,I just added a bunch more test images for that particular items class.  I did this I showed the webcam the particular item and then click a bunch of times on that particular button/class it should belong to. I did that from multiple angles. 
+When the model had problems predicting the right item category,I just added a bunch more test images for that particular items class. I showed the webcam the particular item and then click a bunch of times on that particular button/class it should belong to. I made test images from multiple angles. 
 
 Afterwards I tested again by showing the webcam the item. What I saw was an improvement in predicting the right class and with a higher probability. 
 
 ### Transfer learning
-In task 7 we stop using mobileNets label and probability. Instead the tutorial wants MobileNet to stop right after it  makes the activation map from the webcam image via covnet layers. The activation map is instead used as input for the K nearest neighbours classifier.  K nearest neighbours classifier predicts by comparing our activation map with the test activations maps, that we made using my the A,B,C and “no action” buttons in the DOM. nearest neighbours classifier will try predict the class comparing the most similar test activation with the one we are making predictions for. It will output the result in the browser.
+In task 7 we stop using mobileNets label and probability. Instead the tutorial wants MobileNet to stop right after it  makes the activation map from the webcam image via covnet layers. The activation map is used instead as input for the K nearest neighbours classifier. K nearest neighbours classifier predicts by comparing our activation map with the test activations maps, that we made using my the A,B,C and “no action” buttons in the DOM. I will try find the most similar test activation with the one we are making predictions for. It will output the result in the browser.
 [[tutorial-task-7]](https://codelabs.developers.google.com/codelabs/tensorflowjs-teachablemachine-codelab/index.html#6)
 [[the-coding-train]](https://youtu.be/kRpZ5OqUY6Y?t=365)
 
