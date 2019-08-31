@@ -1,1 +1,94 @@
-mt-image-classifier-assignment
+## Image classification app
+
+This image classification app was built based on the tutorial [TensorFlow.js Transfer Learning Image Classifier](https://codelabs.developers.google.com/codelabs/tensorflowjs-teachablemachine-codelab/index.html#0).
+Every task from the tutorial is made using different branches and then merged into master. Links to the different branches is shown below
+
+### Layout
+Layout for this app is an webcam screen together with 4 buttons. Each button represents a class. Every time a user clicks on a button, a webcam image is added to a particular class as an training example [[tutorial-task-7]](https://codelabs.developers.google.com/codelabs/tensorflowjs-teachablemachine-codelab/index.html#6).
+
+![Layout - webcam and 4 buttons](https://github.com/markat1/mt-image-classifier-assignment/images/layout.jpg)
+
+### Method – how I tested the app!
+
+How I tested this app is showing an item (like a deodorant) in front of the webcam. I click a bunch of times on the button “Add A”.
+
+ Then I show a different item for the webcam and I clicked a bunch of times on button “add B”. Same method goes for class C and “No action”.  
+
+I chose representing class “no action” as the wall in the background. That means that when there’s no items shown for the webcam,  then it should predict “no action”. 
+
+I tried holding the same different items (1 item at a time) over the webcam. I was testing if it was able to predict what class the item belongs to and probability of how likely it belongs to that specific class. If I didn’t show any items then it should say “no action”, because there is no items.
+
+![Classes - A, B, C and "No action"](https://github.com/markat1/mt-image-classifier-assignment/images/classes.jpg)
+
+
+### Problems and how I improved the model
+
+As long as I hold the item in almost the same spot as when I made my test images for the item, then it has no problem in predicting with high probability what category/class the item belongs to. 
+
+If I just changed the camera angle, the model had problems figuring out the correct class or only predict the right class with a low predictability. 
+
+When the model had problems predicting the right item category, I just added a bunch more test images for that particular items class.  I did this I showed the webcam the particular item and then click a bunch of times on that particular button/class it should belong to. I did that from multiple angles. 
+
+Afterwards I tested again by showing the webcam the item. What I saw was an improvement in predicting the right class and with a higher probability. 
+
+### Transfer learning
+![Transfer learning - Using MobileNet as pre model to K-nearest neighbours"](https://github.com/markat1/mt-image-classifier-assignment/images/transfer_learning.jpg)
+
+In the end of the tutorial it doesn’t use mobileNets label and probability anymore. Instead the tutorial wants MobileNet to stop right after it  makes the activation map from the webcam image via covnet layers. The activation map is instead used as input for the K nearest neighbours classifier.  K nearest neighbours classifier predicts by comparing our activation map with the test activations maps, that we made using my the A,B,C and “no action” buttons in the DOM. nearest neighbours classifier will try predict the class comparing the most similar test activation with the one we are making predictions for. It will output the result in the browser.
+
+Using Mobilenet as a pre model to KNN called transfer learning. Transfer learning is a machine learning method where a model developed for a task is reused as the starting point for a model on a second task. 
+
+Deep convolutional neural network can take days or event weeks to train on very large dataset. Then using pre-trained models will short-cut this process. Pre model works  great with small datasets as well, because it’s weight already been trained on a lot of images. 
+
+### How the important parts of the code works
+The code that we will focus on is split up in 2 parts: data collection and prediction. The following sections explains what’s happening in these parts
+
+The code that we will focus on is split up in 2 parts: data collection and prediction. 
+
+The following sections explains what’s happening in these parts.
+
+#### Data collection
+If we want to add more test images to our class we click one of the class buttons in the DOM.When that happens an event it fired and calls a callback function called addExample. addExample takes and index and a class. 
+
+
+ ````
+ const addExample = classId => {
+        // Get the intermediate activation of MobileNet 'conv_preds' and pass that
+        // to the KNN classifier.
+        const activation = net.infer(webcamElement, 'conv_preds');
+
+        // Pass the intermediate activation to the classifier.
+        classifier.addExample(activation, classId);
+    };
+
+    // When clicking a button, add an example for that class.
+    document.getElementById('class-a').addEventListener('click', () => addExample(0));
+    document.getElementById('class-b').addEventListener('click', () => addExample(1));
+    document.getElementById('class-c').addEventListener('click', () => addExample(2));
+    document.getElementById('class-no-action').addEventListener('click', () => addExample(3));    
+````
+    
+Inside the addExample function Mobilenet infer functions is called with webcam image as  an argument and a string indicating that we only want the Mobilenet to process our image with the convolutional layers. This function will output an activation map that is used as input for the K-Nearest Neighbors Classifier.
+
+#### Prediction
+
+The prediction happens in the endless while loop. It first checks if we have already added some test activators and classes to our KNN classifier, and if that is the case then it again mobilenets infer function with the webcame image as input and we specify that we only want to get the activation. We use the activation to predict what class it likely is connected to the most using K nearest neightbour. It compares our activation map with our test activators that are most similar to our activation. Prediction is then showed in DOM together with its probability.   
+
+````
+ while (true) {
+        if (classifier.getNumClasses() > 0) {
+            // Get the activation from mobilenet from the webcam.
+            const activation = net.infer(webcamElement, 'conv_preds');
+            // Get the most likely class and confidences from the classifier module.
+            const result = await classifier.predictClass(activation);
+
+            const classes = ['A', 'B', 'C', 'No action'];
+            document.getElementById('console').innerText = `
+          prediction: ${classes[result.classIndex]}\n
+          probability: ${result.confidences[result.classIndex]}
+        `;
+        }
+
+        await tf.nextFrame();
+    }
+````
