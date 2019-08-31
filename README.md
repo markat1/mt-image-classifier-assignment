@@ -1,7 +1,7 @@
 ## Image classification app
 
 This image classification app was built based on the tutorial [TensorFlow.js Transfer Learning Image Classifier](https://codelabs.developers.google.com/codelabs/tensorflowjs-teachablemachine-codelab/index.html#0).
-Every task from the tutorial is made using different branches and then merged into master. Links to the different branches is shown below
+Every task from the tutorial is made using different branches and then merged into master. 
 
 ### Layout
 Layout for this app is an webcam screen together with 4 buttons. Each button represents a class. Every time a user clicks on a button, a webcam image is added to a particular class as an training example [[tutorial-task-7]](https://codelabs.developers.google.com/codelabs/tensorflowjs-teachablemachine-codelab/index.html#6).
