@@ -42,6 +42,22 @@ Using Mobilenet as a pre model to KNN called transfer learning. Transfer learnin
 
 Deep convolutional neural network can take days or event weeks to train on very large dataset. Then using pre-trained models will short-cut this process. Pre model works  great with small datasets as well, because it’s weight already been trained on a lot of images. [[transfer-learning-cs231n]](http://cs231n.github.io/transfer-learning/)
 
+### Image classification and convolutional neural network
+Convolutional neural network is a deep neural network most often seen used with image classification. Image classifcation is a way of taking an image and ouput an class that best describe the image. 
+
+images is seen as pixels. CNN tries via filters/feature identfiers to find features on image like edges and curves and tries building something out of these concepts. It does that via convolving that is like shining an image with a flashlight.
+
+After convolving what we have is an activation map.
+
+![CNN](https://github.com/markat1/mt-image-classifier-assignment/blob/master/images/CNN.jpg)
+
+[[CCN adeshpande3
+]](https://adeshpande3.github.io/A-Beginner's-Guide-To-Understanding-Convolutional-Neural-Networks/) [[CCN siraj
+]](https://www.youtube.com/watch?v=FTr3n7uBIuE)
+
+
+
+
 ### How the important parts of the code works
 The code that I will focus on is split up in 2 parts: 
   - Data collection 
