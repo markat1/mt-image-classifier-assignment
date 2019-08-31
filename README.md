@@ -48,7 +48,7 @@ The code that I will focus on is split up in 2 parts:
   - Prediction. 
   
 #### Data collection
-If we want to add more test images to our class we click one of the class buttons in the DOM. When that happens an event is fired and calls a callback function called addExample. addExample takes and index and a class. 
+If we want to add more test images to our class we click one of the class buttons in the DOM. When that happens an event i fired and calls a callback function called addExample. addExample takes and index and a class. 
 
  ````
  const addExample = classId => {
@@ -66,7 +66,9 @@ If we want to add more test images to our class we click one of the class button
     document.getElementById('class-c').addEventListener('click', () => addExample(2));
     document.getElementById('class-no-action').addEventListener('click', () => addExample(3));    
 ````
-    
+This code snippet can be seen via this link : [Code](https://github.com/markat1/mt-image-classifier-assignment/blob/master/index.js#L16-L29)
+
+
 Inside the addExample function Mobilenet infer functions is called with webcam image as  an argument and a string indicating that we only want the Mobilenet to process our image with the convolutional layers. This function will output an activation map that is used as input for the K-Nearest Neighbors Classifier.
 
 #### Prediction
@@ -91,4 +93,5 @@ The prediction happens in the endless while loop. It first checks if we have alr
         await tf.nextFrame();
     }
 ````
+This code snippet can be seen via this link : [Code](https://github.com/markat1/mt-image-classifier-assignment/blob/master/index.js#L31-L47)
 
