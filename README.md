@@ -47,6 +47,10 @@ Convolutional neural network is a deep neural network most often seen used with 
 
 images is seen as pixels. CNN tries via filters/feature identfiers to find features on image like edges and curves and tries building something out of these concepts. It does that via convolving that is like shining an image with a flashlight.
 
+After convolving what we have is an activation map.
+
+![CNN](https://github.com/markat1/mt-image-classifier-assignment/blob/master/images/CNN.jpg)
+
 [[CCN adeshpande3
 ]](https://adeshpande3.github.io/A-Beginner's-Guide-To-Understanding-Convolutional-Neural-Networks/) [[CCN siraj
 ]](https://www.youtube.com/watch?v=FTr3n7uBIuE)
