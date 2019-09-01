@@ -87,7 +87,7 @@ Inside the addExample function Mobilenet infer functions is called with webcam i
 
 #### Prediction
 
-The prediction happens in the endless while loop. It first checks if we have already added some activations maps and classes to our KNN classifier, and if that is the case then it again mobilenets infer function with the webcame image as input and we specify that we only want to get the activation. We use the activation to predict what class it likely is connected to the most using K nearest neightbour. It compares our activation map with our test activators that are most similar to our activation. Prediction is then showed in DOM together with its probability.   
+The prediction happens in the endless while loop. It first checks if we have already added some activations maps and classes to our KNN classifier, and if that is the case then it calls mobileNets infer function with the webcame image as input. It specifies that we only want to get the activation map. We use the activation map to predict what class it likely is connected to the most using K nearest neightbour. It compares our activation map with our test activation maps that are most similar to our activation map. Prediction is then showed in DOM together with its probability.   
 
 ````
  while (true) {
